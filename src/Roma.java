@@ -1,24 +1,23 @@
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.*;
 import  java.lang.Thread;
+//8, 9, 3, 6, 8, 4, 2, 3, 9, 2] total 9
 
 public class Roma  extends Thread{
-    public ArrayList<Integer> massive;
-    public ArrayList<Integer> cats = new ArrayList<Integer>();
-    //public ArrayList dogs = new ArrayList();
-    int[] numbers = {2, 3, 7, 8, 9, 4, 6};
-    public int totalSteps=1;
+    private ArrayList<Long> cats = new ArrayList<>();
+    private final long[] numbers = {2, 3, 7, 8, 9, 4, 6};
+    private int totalSteps=1;
 
 
     public Roma() {
         Random a = new Random();
-        for (int i=0;i <40;i++){
+        for (int i=0;i <10;i++){
+            //long number = (long)(a.nextDouble()*7);
             int num = a.nextInt(7);
             cats.add(numbers[num]);
-           // System.out.print(cats.get(i));
+            //System.out.print(cats.get(i));
         }
-        //System.out.println();
+
     }
 
 
@@ -29,18 +28,17 @@ public class Roma  extends Thread{
 
     }
 
-    public void multiply(){
+    private void multiply(){
         if (cats.size()!=1){
-            int temp;
+            long temp;
             temp = cats.get(0) * cats.get(1);
             cats.set(0, temp);
             cats.remove(1);
-            //System.out.println(cats);
+           // System.out.println(cats);
             multiply();
         }
         else if (cats.get(0) >=10){
             totalSteps++;
-            //System.out.println("======STEP NEW======");
             numberToList();
            // System.out.println(cats);
             multiply();
@@ -53,9 +51,9 @@ public class Roma  extends Thread{
 
     }
 
-    public void numberToList() {
-        int temp = cats.get(0);
-       // System.out.println(temp);
+    private void numberToList() {
+        long temp = cats.get(0);
+        //System.out.println(temp);
         cats.remove(0);
         while (temp != 0) {
             cats.add(temp % 10);
@@ -65,17 +63,12 @@ public class Roma  extends Thread{
     }
 
     public boolean check(){
-        if (cats.contains(0)){
-            return false;
-        }
-        return true;
+        return !cats.contains(0L);
     }
 
 
-    public void printIt(){
-        //System.out.println(cats);
+    private void printIt(){
         System.out.println("Total: "+totalSteps + " Для потока " + getName());
-        //System.out.println("Выполнен поток " + getName());
 
     }
 }
