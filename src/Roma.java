@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.*;
+import  java.lang.Thread;
 
-public class Roma {
+public class Roma  extends Thread{
     public ArrayList<Integer> massive;
     public ArrayList<Integer> cats = new ArrayList<Integer>();
     //public ArrayList dogs = new ArrayList();
@@ -12,13 +13,22 @@ public class Roma {
 
     public Roma() {
         Random a = new Random();
-        for (int i=0;i <5;i++){
+        for (int i=0;i <40;i++){
             int num = a.nextInt(7);
             cats.add(numbers[num]);
-            System.out.print(cats.get(i));
+           // System.out.print(cats.get(i));
         }
-        System.out.println();
+        //System.out.println();
     }
+
+
+    @Override
+    public void run() {
+        System.out.println("Стартовал поток " + getName() + " Цифра: " + cats);
+        multiply();
+
+    }
+
     public void multiply(){
         if (cats.size()!=1){
             int temp;
@@ -36,7 +46,8 @@ public class Roma {
             multiply();
         }
         else {
-            System.out.println(cats.get(0));
+           // System.out.println(cats.get(0));
+            printIt();
         }
 
 
@@ -44,7 +55,7 @@ public class Roma {
 
     public void numberToList() {
         int temp = cats.get(0);
-        System.out.println(temp);
+       // System.out.println(temp);
         cats.remove(0);
         while (temp != 0) {
             cats.add(temp % 10);
@@ -53,10 +64,18 @@ public class Roma {
         }
     }
 
+    public boolean check(){
+        if (cats.contains(0)){
+            return false;
+        }
+        return true;
+    }
+
 
     public void printIt(){
         //System.out.println(cats);
-        System.out.println("Total: "+totalSteps);
+        System.out.println("Total: "+totalSteps + " Для потока " + getName());
+        //System.out.println("Выполнен поток " + getName());
 
     }
 }
