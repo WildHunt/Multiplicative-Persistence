@@ -2,13 +2,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 import  java.lang.Thread;
-//8, 9, 3, 6, 8, 4, 2, 3, 9, 2] total 9
+
+//[3, 3, 3, 4, 2, 8, 3, 8, 9, 6] total 8
+//[4, 9, 6, 6, 2, 2, 7, 3, 4, 2, 7, 3, 3, 4, 2] total 10
+//[7, 2, 4, 2, 8, 2, 6, 7, 7, 2, 3, 3, 7, 4, 3, 7, 7, 4, 4, 8] total 11
 
 public class Roma  extends Thread{
     private ArrayList<Long> cats = new ArrayList<>();
+    private ArrayList<Long> dogs = new ArrayList<>();
     private final long[] numbers = {2, 3, 7, 8, 9, 4, 6};
-    private int totalSteps=1;
-    private final int maxSteps=8;
+    public int totalSteps=1;
+    public final int maxSteps=7;
 
 
     public Roma() {
@@ -32,18 +36,19 @@ public class Roma  extends Thread{
     }
 
     public void setCats(ArrayList<Long> cats) {
-        //cats.removeAll(Collections<>);
+
         Random a = new Random();
-        for (int i=0;i <10;i++){
+        for (int i=0;i <20;i++){
             //long number = (long)(a.nextDouble()*7);
             int num = a.nextInt(7);
             cats.add(numbers[num]);
+            dogs.add(numbers[num]);
             //System.out.print(cats.get(i));
         }
         this.cats = cats;
     }
 
-    private void multiply(){
+    private boolean multiply(){
        // System.out.println("Стартовал поток " + getName() + " Цифра: " + cats);
         if (cats.size()!=1){
             long temp;
@@ -59,13 +64,15 @@ public class Roma  extends Thread{
            // System.out.println(cats);
             multiply();
         }
-        else {
-           // System.out.println(cats.get(0));
+        else if (totalSteps > maxSteps){
             printIt();
-            loop();
+            System.out.println(dogs);
+          //  loop();
+            return true;
+
         }
 
-
+        return false;
     }
 
     private void numberToList() {
@@ -89,6 +96,11 @@ public class Roma  extends Thread{
             deleteCats();
             setCats(cats);
             multiply();
+        }
+        else {
+            for (int i=dogs.size(); i< dogs.size()-10;i--){
+                System.out.println("max"+ dogs.get(i)+ getName());
+            }
 
         }
 
@@ -99,9 +111,18 @@ public class Roma  extends Thread{
         cats.remove(0);
     }
 
+    private void clearCats()
+    {
+        totalSteps=1;
+        for (int i=10;i >10;i--){
+         cats.remove(i);
+            //System.out.print(cats.get(i));
+        }
+    }
+
     private void printIt(){
         if (totalSteps>=maxSteps)
-        System.out.println("Total: "+totalSteps + " Для потока " + getName());
+        System.out.println("Total: "+totalSteps + "Number"+ cats+" Для потока " + getName());
 
     }
 }
