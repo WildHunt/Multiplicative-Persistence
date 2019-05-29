@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 import  java.lang.Thread;
 
@@ -9,10 +8,10 @@ import  java.lang.Thread;
 
 public class Roma  extends Thread{
     private ArrayList<Long> cats = new ArrayList<>();
-    private ArrayList<Long> dogs = new ArrayList<>();
+    private final ArrayList<Long> dogs = new ArrayList<>();
     private final long[] numbers = {2, 3, 7, 8, 9, 4, 6};
-    public int totalSteps=1;
-    public final int maxSteps=7;
+    private int totalSteps=1;
+    private final int maxSteps=7;
 
 
     public Roma() {
@@ -35,7 +34,7 @@ public class Roma  extends Thread{
 
     }
 
-    public void setCats(ArrayList<Long> cats) {
+    private void setCats(ArrayList<Long> cats) {
 
         Random a = new Random();
         for (int i=0;i <20;i++){
@@ -48,7 +47,7 @@ public class Roma  extends Thread{
         this.cats = cats;
     }
 
-    private boolean multiply(){
+    private void multiply(){
        // System.out.println("Стартовал поток " + getName() + " Цифра: " + cats);
         if (cats.size()!=1){
             long temp;
@@ -68,11 +67,9 @@ public class Roma  extends Thread{
             printIt();
             System.out.println(dogs);
           //  loop();
-            return true;
 
         }
 
-        return false;
     }
 
     private void numberToList() {
@@ -114,9 +111,9 @@ public class Roma  extends Thread{
     private void clearCats()
     {
         totalSteps=1;
-        for (int i=10;i >10;i--){
-         cats.remove(i);
-            //System.out.print(cats.get(i));
+        //System.out.print(cats.get(i));
+        if (11 > 11) {
+            cats.subList(11, 11).clear();
         }
     }
 
